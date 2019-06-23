@@ -16,11 +16,7 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-bl_info = {"name":"Graph","category": "object" ,
-           "version": (1, 0),
-          "blender": (2, 70, 0),
-           "location": "View3D >Tools ",
-           "Author":"Deependra Singh Rathore"}
+bl_info = {"name":"Graph","category": "object" ,"Author":"Deependra Singh Rathore"}
 import bpy 
 import math
     
@@ -117,7 +113,6 @@ class graph(bpy.types.Operator):
         else:
             bpy.ops.object.text_add(location=(object.location[0]+(object.scale[1]/2 +1), object.location[1]-(object.scale[1]/2),(object.location[2])+0.5), rotation=(math.radians(rotx),0,0))
            
-        #print("test")
         text_obj = bpy.context.object
         text_obj.name = "Value" 
         text_obj.data.body = str(text) + bpy.context.scene.text_value
@@ -156,10 +151,13 @@ class graph(bpy.types.Operator):
         lz = bpy.context.scene.graph_originz
         #CODE
         #Add Grid
-         #Add Grid
         for i in range(0,max(self.data)+1):
             bpy.ops.mesh.primitive_cube_add(radius=0.1,location=(lx-3,(no_of_bars+((no_of_bars-1)*gap))/2,lz+(i*Grid_size)))
             bpy.ops.transform.resize(value=(1,5*(no_of_bars+((no_of_bars-1)*gap)),1))
+            
+        for i in range(0,max(self.data)+1):
+            bpy.ops.mesh.primitive_cube_add(radius=0.1,location=(lx-3,ly+(i*2*Grid_size),(max(self.data)+1)/2))
+            bpy.ops.transform.resize(value=(1,1,5*(max(self.data)+1)))
         #Add Plane
         bpy.ops.mesh.primitive_plane_add( location = (0,0,0),radius = 50)
 
@@ -300,10 +298,10 @@ def register():
     bpy.types.Scene.graph_originy = bpy.props.FloatProperty(name = "Originy",description = "Data values",default = 1,min=0)
     bpy.types.Scene.graph_originz = bpy.props.FloatProperty(name = "Originz",description = "Data values",default = 1,min=0)
     bpy.types.Scene.graph_bars_gap = bpy.props.FloatProperty(name = "Gap",description = "Data values",default = 4,min=0)
-    bpy.types.Scene.graph_grid_size = bpy.props.FloatProperty(name = "Grid Size",description = "Data values",default = 10,min=0)
+    bpy.types.Scene.graph_grid_size = bpy.props.FloatProperty(name = "Grid Size",description = "Data values",default = 1,min=0)
     bpy.types.Scene.graph_bar_size = bpy.props.FloatProperty(name = "Bar Size",description = "Data values",default = 1,min=0)
     bpy.types.Scene.base_size = bpy.props.FloatProperty(name = "Base Size",description = "Data values",default = 1,min=0)
-    bpy.types.Scene.graph_init_height = bpy.props.FloatProperty(name = "Bar Initial Size",description = "Data values",default = 1,min=0)
+    bpy.types.Scene.graph_init_height = bpy.props.FloatProperty(name = "Bar Initial Size",description = "Data values",default = 0,min=0)
     bpy.types.Scene.graph_mult_factor = bpy.props.FloatProperty(name = "Factor",description = "Data values",default = 1,min=0)
     bpy.types.Scene.bar_text_size = bpy.props.FloatProperty(name = "Size",description = "Bar Text Size",default = 1.0)
     #Bools
