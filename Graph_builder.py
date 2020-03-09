@@ -150,10 +150,10 @@ class graph(bpy.types.Operator):
         ly = bpy.context.scene.graph_originy
         lz = bpy.context.scene.graph_originz
         #CODE
-        #Add Grid
-        for i in range(0,max(self.data)+1):
-            bpy.ops.mesh.primitive_cube_add(radius=0.1,location=(lx-3,(no_of_bars+((no_of_bars-1)*gap))/2,lz+(i*Grid_size)))
-            bpy.ops.transform.resize(value=(1,5*(no_of_bars+((no_of_bars-1)*gap)),1))
+        #Add Grid (Have issues)
+        #for i in range(0,max(self.data)+1):
+           # bpy.ops.mesh.primitive_cube_add(radius=0.1,location=(lx-3,(no_of_bars+((no_of_bars-1)*gap))/2,lz+(i*Grid_size)))
+           # bpy.ops.transform.resize(value=(1,5*(no_of_bars+((no_of_bars-1)*gap)),1))
        
         #Add Plane
         bpy.ops.mesh.primitive_plane_add( location = (0,0,0),radius = 50)
